@@ -1,0 +1,51 @@
+---application was launched--------------------------------------------------
+
+print 	"Welcome to <appname>."
+
+print 	"List projects 			(list)"
+		"Open project 			(open <projectname>)"
+		"Create new project 	(new <projectname>)"
+		"Delete project 		(delete <projectname>)"
+		"Exit <appname> 		(exit)"
+
+
+---something detects that user had sent a command and this thing is called---
+
+on_input(input)
+	case
+		"list"
+			list_projects()
+		
+		"open"
+			open_project(projectname)
+		
+		"new"
+			create_project(projectname)
+		
+		"delete"
+			delete_project(projectname)
+		
+		"exit"
+			exit_application()
+			
+	else
+		print "Error: Unrecognized command"
+
+
+---here's what each of those functions should do-----------------------------
+
+list_projects()
+	print "here's a list of your projects"
+
+open_project(projectname)
+	print "project <projectname> was opened"
+
+create_project(projectname)
+	print "project <projectname> was created"
+
+delete_project(projectname)
+	print "project <projectname> was deleted"
+
+exit_application()
+	print "exiting application now cya"
+	exit()
