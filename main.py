@@ -1,8 +1,8 @@
 import sys
 import os
-import modules.mainmenu
-from modules.constants import app_name
-from modules.constants import projects_path
+import mainmenu
+from constants import app_name
+from constants import projects_path
 #______________
 def list_projects():
 	print("Here's a list of your projects: ")
@@ -45,7 +45,7 @@ def on_input(input):
 		print("Error: Unrecognized command")
 #______________
 if __name__ == "__main__":
-	main_menu = modules.mainmenu.init()
+	main_menu = mainmenu.init()
 	main_menu.draw()
 
 	while True:

@@ -1,4 +1,4 @@
-from .constants import app_name
+from constants import app_name
 
 class MenuOption:
 	def __init__(self, name, command):
