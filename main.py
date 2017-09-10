@@ -1,23 +1,30 @@
 import sys
-
-#options = {"List projects":"list", "Open project":"open", "Create new project":"new", "Delete project":"delete", "Exit <appname>":"exit"}
-
+import os
+import modules.mainmenu
+from modules.constants import app_name
+from modules.constants import projects_path
+#______________
 def list_projects():
-	print("here's a list of your projects")
+	print("Here's a list of your projects: ")
+	print("---------")
+	entries = os.listdir(projects_path)
+	for file in entries:
+		print("▪ " + file)
+	print("---------")
 
 def open_project():
-	print("project <projectname> was opened")
+	print("Project <projectname> was opened")
 
 def create_project():
-	print("project <projectname> was created")
+	print("Project <projectname> was created")
 
 def delete_project():
-	print("project <projectname> was deleted")
+	print("Project <projectname> was deleted")
 
 def exit_application():
-	print("exiting application now cya")
+	print("Exiting " + app_name + " now. Cya!")
 	sys.exit(0)
-
+#______________
 def on_input(input):
 	if input == "list":
 		list_projects()
@@ -36,16 +43,10 @@ def on_input(input):
 		
 	else:
 		print("Error: Unrecognized command")
-
+#______________
 if __name__ == "__main__":
-	print("Welcome to <app>!")
-	print("")
-	print("List projects		(list)")
-	print("Open project 		(open <projectname>)")
-	print("Create new project 	(new <projectname>)")
-	print("Delete project 		(delete <projectname>)")
-	print("Exit <appname> 		(exit)")
-	print("")
+	main_menu = modules.mainmenu.init()
+	main_menu.draw()
 
 	while True:
 		i = input(" > ")
