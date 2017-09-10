@@ -12,8 +12,6 @@ class MenuOption:
 class Menu:
 	def __init__(self, options):
 		self.menuoptions = []
-		print(options)
-
 		for name, command in options:
 			self.add_menu_option(name, command)
 
