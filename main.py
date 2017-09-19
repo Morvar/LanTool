@@ -14,7 +14,9 @@ def exit_application():
 		else:
 			print("Error: Unrecognized command")
 
+# this is the entry point
 if __name__ == "__main__":
+	print("Welcome to " + app_name + "!")
 	while True:
 		enter_mainmenu()
 		# when main menu returns, the user has chosen to exit the application

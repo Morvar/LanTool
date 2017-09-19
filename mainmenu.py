@@ -1,5 +1,5 @@
 from constants import app_name
-from utils import list_project_entries
+from utils import list_project_entries, new_projectfile
 import sys
 
 class MenuOption:
@@ -36,7 +36,6 @@ class MainMenu(Menu):
 		super().__init__(options)
 
 	def draw(self):
-		print("Welcome to " + app_name + "!")
 		print("")
 		print("---------")
 		super().draw()
@@ -60,7 +59,8 @@ def open_project():
 	print("Project <projectname> was opened")
 
 def create_project():
-	print("Project <projectname> was created")
+	file = new_projectfile()
+	print("Project " + file.name + " was created")
 
 def delete_project():
 	print("Project <projectname> was deleted")
