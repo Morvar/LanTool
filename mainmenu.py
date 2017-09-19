@@ -1,6 +1,7 @@
 from constants import app_name
 from utils import list_project_entries
 import sys
+
 class MenuOption:
 	def __init__(self, name, command):
 		self.name = name
@@ -30,8 +31,8 @@ class Menu:
 			opt.draw(s)
 
 class MainMenu(Menu):
-	def __init__(self):
-		options = [("List projects", "list"),("Open project", "open"),("Create new project", "new"),("Delete project", "delete"),("Exit " + app_name, "exit")]
+	def __init__(self, options):
+		
 		super().__init__(options)
 
 	def draw(self):
@@ -46,7 +47,8 @@ class MainMenu(Menu):
 		self.draw()
 		while True:
 			i = input(" > ")
-			on_input(i)
+			if on_input(i) is False:
+				break
 #______________
 def list_projects():
 	print("Here's a list of your projects: ")
@@ -63,10 +65,9 @@ def create_project():
 def delete_project():
 	print("Project <projectname> was deleted")
 
-def exit_application():
-	print("Exiting " + app_name + " now. Cya!")
-	print("this exit is done from mainmenu and that should probably be changed")
-	sys.exit(0)
+def exit_mainmenu():
+	print("exiting mainmenu by returning.")
+	return False
 #______________
 def on_input(input):
 	if input == "list":
@@ -82,7 +83,14 @@ def on_input(input):
 		delete_project()
 		
 	elif input == "exit":
-		exit_application()
+		return exit_mainmenu()
 		
 	else:
 		print("Error: Unrecognized command")
+
+def enter_mainmenu():
+	main_menu_options = [("List projects", "list"),("Open project", "open"),("Create new project", "new"),("Delete project", "delete"),("Exit " + app_name, "exit")]
+	main_menu = MainMenu(main_menu_options)
+	main_menu.show()
+	print("returning")
+	return
