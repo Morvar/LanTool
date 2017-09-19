@@ -1,11 +1,5 @@
 def enter_editmode(filepath):
 	wordlist = []
-	
-	
-	
-	
-
-
 
 def on_input(input):
 	if input == "list":
