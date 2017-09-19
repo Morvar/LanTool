@@ -66,7 +66,6 @@ def delete_project():
 	print("Project <projectname> was deleted")
 
 def exit_mainmenu():
-	print("exiting mainmenu by returning.")
 	return False
 #______________
 def on_input(input):
@@ -92,5 +91,4 @@ def enter_mainmenu():
 	main_menu_options = [("List projects", "list"),("Open project", "open"),("Create new project", "new"),("Delete project", "delete"),("Exit " + app_name, "exit")]
 	main_menu = MainMenu(main_menu_options)
 	main_menu.show()
-	print("returning")
 	return
