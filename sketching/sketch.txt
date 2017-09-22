@@ -49,3 +49,18 @@ delete_project(projectname)
 exit_application()
 	print "exiting application now cya"
 	exit()
+	
+----------
+;.-,;_:;-;_:,_SCENE_;:;_:,.-,-.;:_;
+
+element är inte en klass (men kanske varje element skapas ur en klass) men man antar att ett element har en draw()
+
+varje scene har en lista av element
+
+en scene har en draw() som itererar genom listan av elements och kallar deras draw()
+
+varje scene har en request_input()
+
+varje scene ordered dict commands (command, (name, function)), där exit måste finnas från början
+
+kommand-dicten är ett element i elemnts från början och 

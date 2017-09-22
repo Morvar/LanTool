@@ -1,34 +1,33 @@
 from constants import app_name
 from utils import list_project_entries, new_projectfile
-import sys
+from collections import OrderedDict
 
-class MenuOption:
-	def __init__(self, name, command):
-		self.name = name
-		self.command = command
-		
-	def draw(self, s):
-		print(self.name + " " * s + "(" + self.command + ")")
+#class MenuOption:
+#	def __init__(self, name, command):
+#		self.name = name
+#		self.command = command
+#		
+#	def draw(self, s):
+#		print(self.name + " " * s + "(" + self.command + ")")
 
 class Menu:
 	def __init__(self, options):
-		self.menuoptions = []
-		for name, command in options:
-			self.add_menu_option(name, command)
-
-	def add_menu_option(self, name, command):
-		new_opt = MenuOption(name, command)
-		self.menuoptions.append(new_opt)
+		self.menuoptions = options
 
 	def draw(self):
 		l = []
-		for opt in self.menuoptions:
-			l.append(opt.name)
+		for option in self.menuoptions:
+			l.append(option.name)
 		m = max(map(len, l))
 		#number of spaces to put after the name
-		for opt in self.menuoptions:
-			s = m - len(opt.name) + 1
-			opt.draw(s)
+		for option in self.menuoptions:
+			s = m - len(option.name) + 1
+			print(option.name + " " * s + "(" + option.command + ")")
+			
+#	def add_menu_option(self, name, command):
+#		new_opt = MenuOption(name, command)
+#		self.menuoptions.append(new_opt)
+
 
 class MainMenu(Menu):
 	def __init__(self, options):
@@ -52,7 +51,7 @@ class MainMenu(Menu):
 def list_projects():
 	print("Here's a list of your projects: ")
 	print("---------")
-	list_project_entries()
+	list_project_entries() #TODO make all the printing happen here instead, and utils should only return the data
 	print("---------")
 
 def open_project():

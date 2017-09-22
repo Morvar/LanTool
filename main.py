@@ -1,6 +1,7 @@
 import sys
 from mainmenu import enter_mainmenu
 from constants import app_name
+from scene import Scene
 
 def exit_application():
 	while True:
@@ -17,8 +18,10 @@ def exit_application():
 # this is the entry point
 if __name__ == "__main__":
 	print("Welcome to " + app_name + "!")
+	
+	main_menu = Scene("Main Menu")
 	while True:
-		enter_mainmenu()
+		main_menu.enter()
 		# when main menu returns, the user has chosen to exit the application
 		exit_application()
 
