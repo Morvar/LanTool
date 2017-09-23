@@ -15,7 +15,7 @@ def exit_application():
 		else:
 			print("Error: Unrecognized command")
 
-# this is the entry point
+# this is the ENTRY POINT
 if __name__ == "__main__":
 	print("Welcome to " + app_name + "!")
 	

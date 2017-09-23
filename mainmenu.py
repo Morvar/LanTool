@@ -10,43 +10,43 @@ from collections import OrderedDict
 #	def draw(self, s):
 #		print(self.name + " " * s + "(" + self.command + ")")
 
-class Menu:
-	def __init__(self, options):
-		self.menuoptions = options
-
-	def draw(self):
-		l = []
-		for option in self.menuoptions:
-			l.append(option.name)
-		m = max(map(len, l))
-		#number of spaces to put after the name
-		for option in self.menuoptions:
-			s = m - len(option.name) + 1
-			print(option.name + " " * s + "(" + option.command + ")")
-			
+#class Menu:
+#	def __init__(self, options):
+#		self.menuoptions = options
+#
+#	def draw(self):
+#		l = []
+#		for option in self.menuoptions:
+#			l.append(option.name)
+#		m = max(map(len, l))
+#		#number of spaces to put after the name
+#		for option in self.menuoptions:
+#			s = m - len(option.name) + 1
+#			print(option.name + " " * s + "(" + option.command + ")")
+#			
 #	def add_menu_option(self, name, command):
 #		new_opt = MenuOption(name, command)
 #		self.menuoptions.append(new_opt)
 
 
-class MainMenu(Menu):
-	def __init__(self, options):
-		
-		super().__init__(options)
-
-	def draw(self):
-		print("")
-		print("---------")
-		super().draw()
-		print("---------")
-		print("")
-
-	def show(self):
-		self.draw()
-		while True:
-			i = input(" > ")
-			if on_input(i) is False:
-				break
+#class MainMenu(Menu):
+#	def __init__(self, options):
+#		
+#		super().__init__(options)
+#
+#	def draw(self):
+#		print("")
+#		print("---------")
+#		super().draw()
+#		print("---------")
+#		print("")
+#
+#	def show(self):
+#		self.draw()
+#		while True:
+#			i = input(" > ")
+#			if on_input(i) is False:
+#				break
 #______________
 def list_projects():
 	print("Here's a list of your projects: ")
