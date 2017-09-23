@@ -2,10 +2,11 @@ from constants import app_name
 from utils import project_entries, new_projectfile
 from collections import OrderedDict
 from scene import Scene
+from editmode import initialized_edit_mode
 
-def main_menu():
+def initialized_main_menu():
 	#specify the title
-	title = "Main menu"
+	title = "Main Menu"
 
 	#specify the functions
 	def list_projects():
@@ -22,6 +23,10 @@ def main_menu():
 
 	def open_project():
 		print("Project <projectname> was opened")
+		edit_mode = initialized_edit_mode()
+		while True:
+			edit_mode.enter()
+			break
 
 	def delete_project():
 		print("Project <projectname> was deleted")
@@ -40,4 +45,3 @@ def main_menu():
 	#create a main menu from the Scene class
 	main_menu = Scene(title, commands)
 	return main_menu
-	

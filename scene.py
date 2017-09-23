@@ -11,7 +11,10 @@ class Scene:
 			self.commands = deepcopy(commands)
 
 		self.elements = []
-		
+
+	def add_element(self, new_element):
+		self.elements.append(new_element)
+
 	#draw the scene by drawing all the elements
 	def draw(self):
 		#draw the title of the scene
