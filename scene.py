@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from copy import deepcopy
 class Scene:
 	def __init__(self, title, commands = None):
 		self.title = title
@@ -7,7 +8,7 @@ class Scene:
 			self.commands = OrderedDict()
 			self.commands["exit"] = ("Exit", lambda: False)
 		else:
-			self.commands = copy.deepcopy(commands)
+			self.commands = deepcopy(commands)
 
 		self.elements = []
 		
@@ -54,12 +55,21 @@ class Scene:
 
 	def on_input(self, i):
 		keys = self.commands.keys()
-		for key in keys:
-			if key == i:
-				#call the corresponding function
-				return self.commands[key][1]()
+		if i in keys:
+			#call the corresponding function
+			return self.commands[i][1]()
 		#if there was no matching key:
-		print("Error: Unrecognized command")
+		else:
+			print("Error: Unrecognized command")
+			
+#deprecated way of doing it
+#		keys = self.commands.keys()
+#		for key in keys:
+#			if key == i:
+#				#call the corresponding function
+#				return self.commands[key][1]()
+#		#if there was no matching key:
+#		print("Error: Unrecognized command")
 
 	#"launch" the scene. when this function ends, the user has chosen to exit the scene
 	def enter(self):

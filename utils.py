@@ -3,10 +3,8 @@ from constants import projects_path, filename_extension
 #temporary import
 from random import randint
 
-def list_project_entries():
-	entries = os.listdir(projects_path)
-	for file in entries:
-		print("▪ " + file)
+def project_entries():
+	return os.listdir(projects_path)
 
 def generate_filename():
 	#temporary way of generating names
