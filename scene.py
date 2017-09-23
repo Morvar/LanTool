@@ -28,21 +28,25 @@ class Scene:
 	def draw_commands(self):
 		print("")
 		print("---------")
-
-		l = []
-		number_of_spaces = 3
+		list_of_names = []
+		list_of_commands = []
+		number_of_middle_spaces = 3
 		space_character = '·'
 		keys = self.commands.keys()
 		for key in keys:
-			l.append(self.commands[key][0])
-		#set m to the longest of the command names
-		m = max(map(len, l))
+			list_of_names.append(self.commands[key][0])
+			list_of_commands.append(key)
+		#set max to the longest of the command names
+		max_left = max(map(len, list_of_names))
+		max_right = max(map(len, list_of_commands))
 		#calculate number of spaces to put after the name
 		keys = self.commands.keys()
 		for key in keys:
-			s = m - len(self.commands[key][0]) + number_of_spaces
-			print(self.commands[key][0] + space_character * s + "(" + key + ")")
-			
+			number_of_left_spaces = max_left - len(self.commands[key][0])
+			number_of_right_spaces = max_right - len(key)
+			print(self.commands[key][0] + space_character * number_of_left_spaces \
+			+ space_character * number_of_middle_spaces \
+			+ space_character * number_of_right_spaces + "(" + key + ")")
 		print("---------")
 		print("")
 
