@@ -5,25 +5,25 @@ def initialized_edit_mode():
 	title = "Edit Mode"
 
 	#specify the functions
-	def enter_buildmode():
+	def enter_buildmode(scene):
 		pass
 
-	def browse():
+	def browse(scene):
 		pass
 
-	def search():
+	def search(scene):
 		pass
 
-	def edit():
+	def edit(scene):
 		pass
 
-	def add():
+	def add(scene):
 		pass
 
-	def save():
+	def save(scene):
 		pass
 
-	def exit_editmode():
+	def exit_editmode(scene):
 		while True:
 			print("Do you want to exit " + title + "? (yes/no)")
 			i = input(" > ")

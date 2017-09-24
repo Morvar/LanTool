@@ -9,7 +9,7 @@ def initialized_main_menu():
 	title = "Main Menu"
 
 	#specify the functions
-	def list_projects():
+	def list_projects(scene):
 		print("Here's a list of your projects: ")
 		print("---------")
 		entries = project_entries()
@@ -17,23 +17,24 @@ def initialized_main_menu():
 			print("▪ " + file)
 		print("---------")
 
-	def create_project():
+	def create_project(scene):
 		file = new_projectfile()
 		print("Project " + file.name + " was created")
 
 	# the way to edit mode
-	def open_project():
+	def open_project(scene):
 		print("Project <projectname> was opened")
 		edit_mode = initialized_edit_mode()
 		while True:
 			edit_mode.enter()
-			print("draw the main menu here again? because now the edit_mode.enter() has returned, so we're in main menu again")
+			# is this a sane thing to do here?
+			scene.draw()
 			break
 
-	def delete_project():
+	def delete_project(scene):
 		print("Project <projectname> was deleted")
 
-	def exit_mainmenu():
+	def exit_mainmenu(scene):
 		return False
 
 	#specify the commands and which functions they will use

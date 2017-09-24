@@ -64,7 +64,7 @@ class Scene:
 		keys = self.commands.keys()
 		if i in keys:
 			#call the corresponding function
-			return self.commands[i][1]()
+			return self.commands[i][1](self)
 		#if there was no matching key:
 		else:
 			print("Error: Unrecognized command")
