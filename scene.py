@@ -30,7 +30,7 @@ class Scene:
 
 	def draw_commands(self):
 		print("")
-		print("---------")
+		#print("---------")
 		list_of_names = []
 		list_of_commands = []
 		number_of_middle_spaces = 3
@@ -50,7 +50,7 @@ class Scene:
 			print(self.commands[key][0] + space_character * number_of_left_spaces \
 			+ space_character * number_of_middle_spaces \
 			+ space_character * number_of_right_spaces + "(" + key + ")")
-		print("---------")
+		#print("---------")
 		print("")
 
 	def request_input(self):
