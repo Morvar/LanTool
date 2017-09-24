@@ -21,11 +21,13 @@ def initialized_main_menu():
 		file = new_projectfile()
 		print("Project " + file.name + " was created")
 
+	# the way to edit mode
 	def open_project():
 		print("Project <projectname> was opened")
 		edit_mode = initialized_edit_mode()
 		while True:
 			edit_mode.enter()
+			print("draw the main menu here again? because now the edit_mode.enter() has returned, so we're in main menu again")
 			break
 
 	def delete_project():

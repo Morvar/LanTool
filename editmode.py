@@ -28,7 +28,6 @@ def initialized_edit_mode():
 			print("Do you want to exit " + title + "? (yes/no)")
 			i = input(" > ")
 			if i == "yes":
-				print("Exiting " + title + ".")
 				return False
 			if i == "no":
 				break
