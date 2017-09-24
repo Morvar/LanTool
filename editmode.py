@@ -1,12 +1,18 @@
 from collections import OrderedDict
 from scene import Scene
+from buildmode import initialized_build_mode
 def initialized_edit_mode():
 	#specify the title
 	title = "Edit Mode"
 
 	#specify the functions
 	def enter_buildmode(scene):
-		pass
+		build_mode = initialized_build_mode()
+		while True:
+			build_mode.enter()
+			# is this a sane thing to do here?
+			scene.draw()
+			break
 
 	def browse(scene):
 		pass
