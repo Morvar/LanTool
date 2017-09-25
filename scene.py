@@ -61,14 +61,26 @@ class Scene:
 				break
 
 	def on_input(self, i):
-		keys = self.commands.keys()
-		if i in keys:
+		# string -> list
+		input_args = i.split(" ")
+
+#		keys = self.commands.keys()
+#		if input_args[0] in keys:
+
+		#define the command as the first of the received arguments
+		input_command = input_args[0]
+		#put the rest of the arguments in a list to send along
+		tail_args = input_args[1:]
+		try:
 			#call the corresponding function
-			return self.commands[i][1](self)
-		#if there was no matching key:
-		else:
+			command_function = self.commands[input_command][1]
+		except KeyError:
+			#if there was no matching key:
 			print("Error: Unrecognized command")
-			
+		else:
+			print("Input: ", input_args[0], tail_args)
+			return command_function(self, tail_args)
+
 #deprecated way of doing it
 #		keys = self.commands.keys()
 #		for key in keys:

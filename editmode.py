@@ -6,7 +6,7 @@ def initialized_edit_mode():
 	title = "Edit Mode"
 
 	#specify the functions
-	def enter_buildmode(scene):
+	def enter_buildmode(scene, args):
 		build_mode = initialized_build_mode()
 		while True:
 			build_mode.enter()
@@ -14,22 +14,22 @@ def initialized_edit_mode():
 			scene.draw()
 			break
 
-	def browse(scene):
+	def browse(scene, args):
 		pass
 
-	def search(scene):
+	def search(scene, args):
 		pass
 
-	def edit(scene):
+	def edit(scene, args):
 		pass
 
-	def add(scene):
+	def add(scene, args):
 		pass
 
-	def save(scene):
+	def save(scene, args):
 		pass
 
-	def exit_editmode(scene):
+	def exit_editmode(scene, args):
 		while True:
 			print("Do you want to exit " + title + "? (yes/no)")
 			i = input(" > ")

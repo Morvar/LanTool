@@ -5,25 +5,25 @@ def initialized_build_mode():
 	title = "Build Mode"
 
 	#specify the functions
-	def add_piece(scene):
+	def add_piece(scene, args):
 		pass
 
-	def remove_piece(scene):
+	def remove_piece(scene, args):
 		pass
 
-	def move_piece(scene):
+	def move_piece(scene, args):
 		pass
 
-	def edit_piece(scene):
+	def edit_piece(scene, args):
 		pass
 
-	def duplicate_piece(scene):
+	def duplicate_piece(scene, args):
 		pass
 
-	def save_workspace(scene):
+	def save_workspace(scene, args):
 		pass
 
-	def exit_buildmode(scene):
+	def exit_buildmode(scene, args):
 		while True:
 			print("Do you want to exit " + title + "? (yes/no)")
 			i = input(" > ")
