@@ -81,15 +81,6 @@ class Scene:
 			print("Input: ", input_args[0], tail_args)
 			return command_function(self, tail_args)
 
-#deprecated way of doing it
-#		keys = self.commands.keys()
-#		for key in keys:
-#			if key == i:
-#				#call the corresponding function
-#				return self.commands[key][1]()
-#		#if there was no matching key:
-#		print("Error: Unrecognized command")
-
 	#"launch" the scene. when this function ends, the user has chosen to exit the scene
 	def enter(self):
 		self.draw()
