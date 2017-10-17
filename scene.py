@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from copy import deepcopy
+from utils import print_unrecognized_command
 class Scene:
 	def __init__(self, title, commands = None):
 		self.title = title
@@ -64,9 +65,6 @@ class Scene:
 		# string -> list
 		input_args = i.split(" ")
 
-#		keys = self.commands.keys()
-#		if input_args[0] in keys:
-
 		#define the command as the first of the received arguments
 		input_command = input_args[0]
 		#put the rest of the arguments in a list to send along
@@ -76,9 +74,9 @@ class Scene:
 			command_function = self.commands[input_command][1]
 		except KeyError:
 			#if there was no matching key:
-			print("Error: Unrecognized command")
+			print_unrecognized_command(input_command)
 		else:
-			print("Input: ", input_args[0], tail_args)
+			print("(debug from scene) Input: ", input_args[0], tail_args)
 			return command_function(self, tail_args)
 
 	#"launch" the scene. when this function ends, the user has chosen to exit the scene

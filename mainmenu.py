@@ -1,5 +1,5 @@
-from constants import app_name
-from utils import project_entries, new_projectfile, remove_projectfile
+from constants import app_name, filename_extension
+from utils import project_entries, new_projectfile, remove_projectfile, print_invalid_arg
 from collections import OrderedDict
 from scene import Scene
 from editmode import initialized_edit_mode
@@ -11,6 +11,10 @@ def initialized_main_menu():
 
 	#specify the functions
 	def list_projects(scene, args):
+		#if there were additional arguments, don't execute 
+		if args:
+			print_invalid_arg(args[0])
+			return
 		print("Here's a list of your projects: ")
 		print("---------")
 		entries = project_entries()
@@ -33,11 +37,14 @@ def initialized_main_menu():
 			break
 
 	def delete_project(scene, args):
-		#glfödf
-		if remove_projectfile(file_name):
-			print(file_name + " was deleted")
-		else:
-			print(file_name + " was not deleted")
+		for file_name in args:
+			if not file_name.endswith(filename_extension):
+				file_name = f"{file_name}{filename_extension}"
+			if remove_projectfile(file_name):
+				#if has file ending, good, if has not file ending, add it when looking for filename
+				print(file_name + " was deleted")
+			else:
+				print(file_name + " was not deleted")
 
 	def exit_mainmenu(scene, args):
 		return False

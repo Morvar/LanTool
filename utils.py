@@ -32,7 +32,7 @@ def remove_projectfile(file_name):
 				if i == "no":
 					return False
 				else:
-					print("Error: Unrecognized command")
+					print_unrecognized_command(i)
 		try:
 			os.remove(file_path)
 			return True
@@ -41,3 +41,9 @@ def remove_projectfile(file_name):
 	else:
 		print("Couldn't find " + file_path)
 	return False
+
+def print_unrecognized_command(cmd):
+	print("Error: Unrecognized command: " + cmd)
+
+def print_invalid_arg(arg):
+	print("Error: Invalid argument: " + arg)
