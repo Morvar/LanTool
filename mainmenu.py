@@ -1,5 +1,5 @@
 from constants import app_name, filename_extension
-from utils import project_entries, new_projectfile, remove_projectfile, print_invalid_arg
+from utils import project_entries, new_projectfile, remove_projectfile, print_invalid_arg, print_missing_arg
 from collections import OrderedDict
 from scene import Scene
 from editmode import initialized_edit_mode
@@ -18,33 +18,58 @@ def initialized_main_menu():
 		print("Here's a list of your projects: ")
 		print("---------")
 		entries = project_entries()
-		for file in entries:
-			print("▪ " + file)
+		for entry in entries:
+			print("▪ " + entry.stem)
 		print("---------")
 
 	def create_project(scene, args):
-		file = new_projectfile()
-		print("Project " + file.name + " was created")
+		#if there were more than one additional argument, don't execute
+		if len(args) > 1:
+			print_invalid_arg(args[1])
+			return
+		#if no arguments were given, set the project name to empty
+		if not args:
+			file_name = ""
+		else:
+			file_name = args[0]
+		new_file = new_projectfile(file_name)
+		if not new_file:
+			return
+		print(f"Project '{new_file.stem}' was created") 
 
-	# the way to edit mode
+	#the way to edit mode
 	def open_project(scene, args):
-		print("Opening <projectname>")
+		#if no arguments were given, don't execute
+		if not args:
+			print_missing_arg("project name")
+			return
+		#if there were more than one additional argument, don't execute 
+		if len(args) > 1:
+			print_invalid_arg(args[1])
+			return
+		project_name = args[0]
+		print("Opening project " + project_name + "... ")
 		edit_mode = initialized_edit_mode()
 		while True:
 			edit_mode.enter()
-			# is this a sane thing to do here?
+			# is drawing scene a sane thing to do here?
 			scene.draw()
 			break
 
 	def delete_project(scene, args):
+		#if no arguments were given, don't execute
+		if not args:
+			print_missing_arg("project name")
+			return
+		#if there were more than one additional argument, don't execute 
+		if len(args) > 1:
+			print_invalid_arg(args[1])
+			return
 		for file_name in args:
-			if not file_name.endswith(filename_extension):
-				file_name = f"{file_name}{filename_extension}"
 			if remove_projectfile(file_name):
-				#if has file ending, good, if has not file ending, add it when looking for filename
-				print(file_name + " was deleted")
+				print(f"{file_name} was deleted")
 			else:
-				print(file_name + " was not deleted")
+				print(f"{file_name} was not deleted")
 
 	def exit_mainmenu(scene, args):
 		return False
