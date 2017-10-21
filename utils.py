@@ -45,7 +45,7 @@ def new_projectfile(name):
 	try:
 		filepath.touch(exist_ok=False)
 	except FileExistsError:
-		print(f"Error: Project '{name}' already exists")
+		print(f"Error: Project '{filepath.stem}' already exists")
 		return None
 	return filepath
 
