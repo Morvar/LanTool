@@ -63,8 +63,7 @@ class Scene:
 
 	def on_input(self, i):
 		# string -> list
-		input_args = i.split(" ")
-
+		input_args = i.split()
 		#define the command as the first of the received arguments
 		input_command = input_args[0]
 		#put the rest of the arguments in a list to send along
