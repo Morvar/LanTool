@@ -25,8 +25,8 @@ def generate_filename():
 	return str(randint(1, 10))
 
 def contains_invalid_filename_character(name):
-	#return len(Path(name).parts) == 1
-	return len(Path(name).parts) <= 1
+	#return not len(Path(name).parts) == 1
+	return not len(Path(name).parts) <= 1
 
 def new_projectfile(name):
 	if contains_invalid_filename_character(name):
