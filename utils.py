@@ -24,12 +24,12 @@ def generate_filename():
 	#temporary way of generating names
 	return str(randint(1, 10))
 
-def valid_projectname(name):
+def contains_invalid_filename_character(name):
 	#return len(Path(name).parts) == 1
 	return len(Path(name).parts) <= 1
 
 def new_projectfile(name):
-	if not valid_projectname(name):
+	if contains_invalid_filename_character(name):
 		print(f"Error: Invalid project name: '{name}'")
 		return
 	#if no name was provided, generate one
