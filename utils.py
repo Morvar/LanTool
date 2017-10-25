@@ -20,6 +20,18 @@ def project_entries():
 def entries_in_dir(path):
 	path.iterdir()
 
+def get_project_path(name):
+	return (projects_path / name).with_suffix(filename_extension)
+
+def is_project(name):
+	path = get_project_path(name)
+	return path.exists()
+
+def get_project(name):
+	path = get_project_path(name)
+	#make a json object
+	print("utils get_project not implemented")
+
 def generate_filename():
 	#temporary way of generating names
 	return str(randint(1, 10))
@@ -31,17 +43,17 @@ def contains_invalid_filename_character(name):
 def new_projectfile(name):
 	if contains_invalid_filename_character(name):
 		print(f"Error: Invalid project name: '{name}'")
-		return
+		return 
 	#if no name was provided, generate one
 	if not name:
 		while True:
 			name = generate_filename()
-			filepath = (projects_path / name).with_suffix(filename_extension)
+			filepath = get_project_path(name)
 			#when name has been successfully generated, break loop
 			if not filepath.exists(): break
 	#if there was no problem, use the provided name
 	else:
-		filepath = (projects_path / name).with_suffix(filename_extension)
+		filepath = get_project_path(name)
 	try:
 		filepath.touch(exist_ok=False)
 	except FileExistsError:
@@ -50,7 +62,7 @@ def new_projectfile(name):
 	return filepath
 
 def remove_projectfile(file_name):
-	filepath = (projects_path / file_name).with_suffix(filename_extension)
+	filepath = get_project_path(name)
 	if filepath.is_file():
 		while True:
 				print("Delete " + filepath.stem + " (no undo)? (yes/no)")

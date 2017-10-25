@@ -1,5 +1,5 @@
 from constants import app_name, filename_extension
-from utils import project_entries, new_projectfile, remove_projectfile, print_invalid_arg, print_missing_arg
+from utils import project_entries, new_projectfile, remove_projectfile, print_invalid_arg, print_missing_arg, is_project, get_project
 from collections import OrderedDict
 from scene import Scene
 from editmode import initialized_edit_mode
@@ -48,8 +48,12 @@ def initialized_main_menu():
 			print_invalid_arg(args[1])
 			return
 		project_name = args[0]
+		try:
+			project = get_project(project_name)
+		except FileNotFoundError as e:
+			pass
+		edit_mode = initialized_edit_mode(project)
 		print("Opening project " + project_name + "... ")
-		edit_mode = initialized_edit_mode()
 		while True:
 			edit_mode.enter()
 			# is drawing scene a sane thing to do here?
