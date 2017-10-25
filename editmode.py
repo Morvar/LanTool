@@ -2,8 +2,9 @@ from collections import OrderedDict
 from scene import Scene
 from buildmode import initialized_build_mode
 def initialized_edit_mode(project):
+	project_name = "projectname retrieval to be implemented"
 	#specify the title
-	title = "Edit Mode"
+	title = f"Edit Mode [{project_name}]"
 
 	#specify the functions
 	def enter_buildmode(scene, args):
