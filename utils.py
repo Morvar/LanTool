@@ -4,9 +4,6 @@ from pathlib import Path
 #temporary import
 from random import randint
 
-#def project_entries():
-#	return os.listdir(projects_path)
-
 def project_entries():
 	file_list = []
 	for entry in projects_path.iterdir():
@@ -82,27 +79,6 @@ def remove_projectfile(file_name):
 		print(f"Couldn't find {filepath}")
 	return False
 
-#def remove_projectfile(file_name):
-#	filepath = (projects_path / file_name).with_suffix(filename_extension)
-#	if os.path.isfile(file_path):
-#		while True:
-#				print("Delete " + file_path + " (no undo)? (yes/no)")
-#				i = input(" > ")
-#				if i == "yes":
-#					break
-#				if i == "no":
-#					return False
-#				else:
-#					print_unrecognized_command(i)
-#		try:
-#			os.remove(file_path)
-#			return True
-#		except OSError as e:
-#			print(e)
-#	else:
-#		print("Couldn't find " + file_path)
-#	return False
-
 def print_unrecognized_command(cmd):
 	print("Error: Unrecognized command: " + cmd)
 
@@ -111,14 +87,3 @@ def print_invalid_arg(arg):
 
 def print_missing_arg(missing_arg):
 	print("Error: Missing argument: '" + missing_arg + "'")
-
-#def include_filename_extension(file_name):
-#	if not file_name.endswith(filename_extension):
-#		file_name = f"{file_name}{filename_extension}"
-#	return file_name
-#
-#def exclude_filename_extension(file_name):
-#	if file_name.endswith(filename_extension):
-#		file_name = f"{file_name}{filename_extension}"
-#		print("exclude_filename_extension in utils still not properly implemented")
-#	return file_name
