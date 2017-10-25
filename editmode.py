@@ -8,11 +8,10 @@ def initialized_edit_mode(project):
 	#specify the functions
 	def enter_buildmode(scene, args):
 		build_mode = initialized_build_mode()
-		while True:
-			build_mode.enter()
-			# is this a sane thing to do here?
-			scene.draw()
-			break
+		build_mode.enter()
+		# is drawing scene a sane thing to do here?
+		scene.draw()
+		return
 
 	def browse(scene, args):
 		pass

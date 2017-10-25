@@ -54,11 +54,10 @@ def initialized_main_menu():
 			pass
 		edit_mode = initialized_edit_mode(project)
 		print("Opening project " + project_name + "... ")
-		while True:
-			edit_mode.enter()
-			# is drawing scene a sane thing to do here?
-			scene.draw()
-			break
+		edit_mode.enter()
+		# is drawing scene a sane thing to do here?
+		scene.draw()
+		return
 
 	def delete_project(scene, args):
 		#if no arguments were given, don't execute
