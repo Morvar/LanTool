@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from copy import deepcopy
 from utils import print_unrecognized_command
+from constants import input_prompt
 class Scene:
 	def __init__(self, title, commands = None):
 		self.title = title
@@ -56,7 +57,7 @@ class Scene:
 
 	def request_input(self):
 		while True:
-			i = input(" > ")
+			i = input(input_prompt)
 			#keep going doing on_input stuff, in case the user didn't say exit which will cause on_input to return False
 			if self.on_input(i) is False:
 				break

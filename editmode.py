@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from scene import Scene
 from buildmode import initialized_build_mode
+from constants import input_prompt
 def initialized_edit_mode(project):
 	project_name = "projectname retrieval to be implemented"
 	#specify the title
@@ -32,7 +33,7 @@ def initialized_edit_mode(project):
 	def exit_editmode(scene, args):
 		while True:
 			print("Do you want to exit " + title + "? (yes/no)")
-			i = input(" > ")
+			i = input(input_prompt)
 			if i == "yes":
 				return False
 			if i == "no":

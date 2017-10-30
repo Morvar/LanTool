@@ -1,5 +1,5 @@
 import os
-from constants import projects_path, filename_extension
+from constants import projects_path, filename_extension, input_prompt
 from pathlib import Path
 #temporary import
 from random import randint
@@ -63,7 +63,7 @@ def remove_projectfile(name):
 	if filepath.is_file():
 		while True:
 				print("Delete " + filepath.stem + " (no undo)? (yes/no)")
-				i = input(" > ")
+				i = input(input_prompt)
 				if i == "yes":
 					break
 				if i == "no":
