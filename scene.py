@@ -64,6 +64,7 @@ class Scene:
 	def on_input(self, i):
 		# string -> list
 		input_args = i.split()
+		if not input_args: return True
 		#define the command as the first of the received arguments
 		input_command = input_args[0]
 		#put the rest of the arguments in a list to send along

@@ -58,7 +58,7 @@ def new_projectfile(name):
 		return None
 	return filepath
 
-def remove_projectfile(file_name):
+def remove_projectfile(name):
 	filepath = get_project_path(name)
 	if filepath.is_file():
 		while True:
