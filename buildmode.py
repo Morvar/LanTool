@@ -1,3 +1,4 @@
+# coding: utf-8
 from collections import OrderedDict
 from scene import Scene
 def initialized_build_mode():

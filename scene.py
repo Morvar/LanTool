@@ -1,3 +1,4 @@
+# coding: utf-8
 from collections import OrderedDict
 from copy import deepcopy
 from utils import print_unrecognized_command

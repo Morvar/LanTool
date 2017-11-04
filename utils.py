@@ -1,3 +1,4 @@
+# coding: utf-8
 import os
 from constants import projects_path, filename_extension, input_prompt
 from pathlib import Path

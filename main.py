@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# coding: utf-8
 import sys
 from mainmenu import initialized_main_menu
 from constants import app_name

@@ -1,3 +1,4 @@
+# coding: utf-8
 from pathlib import Path
 app_name = "myKoto"
 projects_path = Path("projects")

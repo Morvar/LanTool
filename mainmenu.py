@@ -1,3 +1,4 @@
+# coding: utf-8
 from constants import app_name, filename_extension
 from utils import project_entries, new_projectfile, remove_projectfile, print_invalid_arg, print_missing_arg, is_project, get_project
 from collections import OrderedDict
