@@ -57,13 +57,16 @@ def initialized_edit_mode(project):
 			return
 		dictionary_form = args[0].strip()
 		print("Part of speech (leave empty if not applicable): ")
-		part_of_speech = input(constants.input_prompt).strip()
+		part_of_speech = input(constants.input_prompt).strip().lower()
 		print("Meaning (leave empty if not applicable): ")
 		meaning = input(constants.input_prompt).strip()
 		forms = additionalWordForms()
 		new_entry = WordlistEntry(dictionary_form, forms, part_of_speech, meaning)
 		wordlist[dictionary_form] = new_entry
 		print("Added " + dictionary_form + " to word list")
+		print("Forms:",str(wordlist[dictionary_form].forms))
+		print("partofspeech:",wordlist[dictionary_form].part_of_speech)
+		print("meaning:",wordlist[dictionary_form].meaning)
 
 	def save(scene, args):
 		pass
