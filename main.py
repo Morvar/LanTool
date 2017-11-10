@@ -26,5 +26,3 @@ if __name__ == "__main__":
 		main_menu.enter()
 		# when main menu returns, the user has chosen to exit the application
 		exit_application()
-
-

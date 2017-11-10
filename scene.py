@@ -1,8 +1,8 @@
 # coding: utf-8
 from collections import OrderedDict
 from copy import deepcopy
-from utils import print_unrecognized_command
-from constants import input_prompt
+import utils
+import constants
 class Scene:
 	def __init__(self, title, commands = None):
 		self.title = title
@@ -58,7 +58,7 @@ class Scene:
 
 	def request_input(self):
 		while True:
-			i = input(input_prompt)
+			i = input(constants.input_prompt)
 			#keep going doing on_input stuff, in case the user didn't say exit which will cause on_input to return False
 			if self.on_input(i) is False:
 				break
@@ -76,7 +76,7 @@ class Scene:
 			command_function = self.commands[input_command][1]
 		except KeyError:
 			#if there was no matching key:
-			print_unrecognized_command(input_command)
+			utils.print_unrecognized_command(input_command)
 		else:
 			print("(debug from scene) Input: ", input_args[0], tail_args)
 			return command_function(self, tail_args)

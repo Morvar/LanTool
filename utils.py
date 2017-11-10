@@ -1,13 +1,13 @@
 # coding: utf-8
 import os
-from constants import projects_path, filename_extension, input_prompt
+import constants
 from pathlib import Path
 #temporary import
 from random import randint
 
 def project_entries():
 	file_list = []
-	for entry in projects_path.iterdir():
+	for entry in constants.projects_path.iterdir():
 		if entry.is_file():
 			file_list.append(entry)
 		elif entry.is_dir():
@@ -19,7 +19,7 @@ def entries_in_dir(path):
 	path.iterdir()
 
 def get_project_path(name):
-	return (projects_path / name).with_suffix(filename_extension)
+	return (constants.projects_path / name).with_suffix(constants.filename_extension)
 
 def is_project(name):
 	path = get_project_path(name)
@@ -41,7 +41,7 @@ def contains_invalid_filename_character(name):
 def new_projectfile(name):
 	if contains_invalid_filename_character(name):
 		print(f"Error: Invalid project name: '{name}'")
-		return 
+		return
 	#if no name was provided, generate one
 	if not name:
 		while True:
@@ -64,7 +64,7 @@ def remove_projectfile(name):
 	if filepath.is_file():
 		while True:
 				print("Delete " + filepath.stem + " (no undo)? (yes/no)")
-				i = input(input_prompt)
+				i = input(constants.input_prompt)
 				if i == "yes":
 					break
 				if i == "no":
