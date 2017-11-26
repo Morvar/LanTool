@@ -20,7 +20,10 @@ def entries_in_dir(path):
 	path.iterdir()
 
 def get_project_path(name):
-	return (constants.projects_path / name).with_suffix(constants.filename_extension)
+	path = (constants.projects_path / name).with_suffix(constants.filename_extension)
+	if not path.exists():
+		return None
+	return path
 
 def is_project(name):
 	path = get_project_path(name)
@@ -42,7 +45,8 @@ def save_project(project, path):
 def load_project(path):
 	with path.open("rt") as fd:
 		try:
-			return json.load(fd)
+			r = json.load(fd)
+			return r
 		except json.JSONDecodeError as e: 
 			return {"name": path.stem,"wordlist":{}}
 

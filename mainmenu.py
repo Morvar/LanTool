@@ -49,10 +49,10 @@ def initialized_main_menu():
 			utils.print_invalid_arg(args[1])
 			return
 		project_name = args[0]
-		try:
-			project_path = utils.get_project_path(project_name)
-		except FileNotFoundError as e:
-			pass
+		project_path = utils.get_project_path(project_name)
+		if not project_path:
+			print(f"Could not find project {project_name}")
+			return
 		edit_mode = initialized_edit_mode(project_path)
 		print("Opening project " + project_name + "... ")
 		edit_mode.enter()
