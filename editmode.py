@@ -5,13 +5,15 @@ from buildmode import initialized_build_mode
 import constants
 import utils
 
-def initialized_edit_mode(project):
-	#projectname retrieval to be implemented
-	project_name = ""
-	#specify the title
+def initialized_edit_mode(path):
+	project = utils.load_project(path)
+	print("ggrrhahrg",str(project))
+	project_name = project["name"]
+	
+	wordlist = project["wordlist"]
+	#specify the title of the scene
 	title = f"Edit Mode [{project_name}]"
-	#wordlist retrieval to be implemented
-	wordlist = {}
+	
 	#specify the functions
 	def enter_buildmode(scene, args):
 		build_mode = initialized_build_mode()
@@ -61,15 +63,15 @@ def initialized_edit_mode(project):
 		print("Meaning (leave empty if not applicable): ")
 		meaning = input(constants.input_prompt).strip()
 		forms = additionalWordForms()
-		new_entry = WordlistEntry(dictionary_form, forms, part_of_speech, meaning)
+		new_entry = wordlist_entry(dictionary_form, forms, part_of_speech, meaning)
 		wordlist[dictionary_form] = new_entry
 		print("Added " + dictionary_form + " to word list")
-		print("Forms:",str(wordlist[dictionary_form].forms))
-		print("partofspeech:",wordlist[dictionary_form].part_of_speech)
-		print("meaning:",wordlist[dictionary_form].meaning)
+		print("Forms:",str(wordlist[dictionary_form]["forms"]))
+		print("partofspeech:",wordlist[dictionary_form]["part_of_speech"])
+		print("meaning:",wordlist[dictionary_form]["meaning"])
 
 	def save(scene, args):
-		pass
+		utils.save_project(project, path)
 
 	def exit_editmode(scene, args):
 		while True:
@@ -96,9 +98,16 @@ def initialized_edit_mode(project):
 	edit_mode = Scene(title, commands)
 	return edit_mode
 
-class WordlistEntry:
-	def __init__(self, dictionary_form, forms = None, part_of_speech = None, meaning = None):
-		self.dictionary_form = dictionary_form
-		self.forms = forms
-		self.part_of_speech = part_of_speech
-		self.meaning = meaning
+#class WordlistEntry:
+def wordlist_entry(dictionary_form, forms = None, part_of_speech = None, meaning = None):
+#def (dictionary_form, forms = None, part_of_speech = None, meaning = None):
+	r = {}
+	r["dictionary_form"] = dictionary_form
+	r["forms"] = forms
+	r["part_of_speech"] = part_of_speech
+	r["meaning"] = meaning
+	return r
+#		self.dictionary_form = dictionary_form
+#		self.forms = forms
+#		self.part_of_speech = part_of_speech
+#		self.meaning = meaning

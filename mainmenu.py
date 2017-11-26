@@ -50,10 +50,10 @@ def initialized_main_menu():
 			return
 		project_name = args[0]
 		try:
-			project = utils.get_project(project_name)
+			project_path = utils.get_project_path(project_name)
 		except FileNotFoundError as e:
 			pass
-		edit_mode = initialized_edit_mode(project)
+		edit_mode = initialized_edit_mode(project_path)
 		print("Opening project " + project_name + "... ")
 		edit_mode.enter()
 		# is drawing scene a sane thing to do here?

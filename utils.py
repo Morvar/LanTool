@@ -2,6 +2,7 @@
 import os
 import constants
 from pathlib import Path
+import json
 #temporary import
 from random import randint
 
@@ -25,14 +26,25 @@ def is_project(name):
 	path = get_project_path(name)
 	return path.exists()
 
-def get_project(name):
-	path = get_project_path(name)
+#def get_project(name):
+#	path = get_project_path(name)
 	#make a json object
-	print("utils get_project not implemented")
+#	print("utils get_project not implemented")
 
 def generate_filename():
 	#temporary way of generating names
 	return str(randint(1, 10))
+
+def save_project(project, path):
+	with path.open("wt") as fd:
+		json.dump(project, fd)
+
+def load_project(path):
+	with path.open("rt") as fd:
+		try:
+			return json.load(fd)
+		except json.JSONDecodeError as e: 
+			return {"name": path.stem,"wordlist":{}}
 
 def contains_invalid_filename_character(name):
 	#return not len(Path(name).parts) == 1
@@ -63,14 +75,14 @@ def remove_projectfile(name):
 	filepath = get_project_path(name)
 	if filepath.is_file():
 		while True:
-				print("Delete " + filepath.stem + " (no undo)? (yes/no)")
-				i = input(constants.input_prompt)
-				if i == "yes":
-					break
-				if i == "no":
-					return False
-				else:
-					print_unrecognized_command(i)
+			print("Delete " + filepath.stem + " (no undo)? (yes/no)")
+			i = input(constants.input_prompt)
+			if i == "yes":
+				break
+			if i == "no":
+				return False
+			else:
+				print_unrecognized_command(i)
 		try:
 			filepath.unlink()
 			return True
