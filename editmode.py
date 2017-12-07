@@ -7,7 +7,7 @@ import utils
 
 def initialized_edit_mode(path):
 	project = utils.load_project(path)
-	print("ggrrhahrg",str(project))
+	#print(str(project))
 	project_name = project["name"]
 	
 	wordlist = project["wordlist"]
@@ -25,8 +25,21 @@ def initialized_edit_mode(path):
 	def browse(scene, args):
 		pass
 
-	def search(scene, args):
-		pass
+	def show(scene, args):
+		#if no arguments were given, don't execute
+		if not args:
+			utils.print_missing_arg("word")
+			return
+		#if there were more than one additional argument, don't execute
+		if len(args) > 1:
+			utils.print_invalid_arg(args[1])
+			return
+		word = args[0]
+		try:
+			print(wordlist[word])
+		except KeyError:
+			print("No match was found for " + word)
+			print("to be implemented properly")
 
 	def edit(scene, args):
 		pass
@@ -88,7 +101,7 @@ def initialized_edit_mode(path):
 	commands = OrderedDict()
 	commands["buildmode"] = ("Enter Build Mode", enter_buildmode)
 	commands["browse"] = ("Browse", browse)
-	commands["search"] = ("Search word", search)
+	commands["show"] = ("Show word", show)
 	commands["edit"] = ("Edit word", edit)
 	commands["add"] = ("Add word", add)
 	commands["save"] = ("Save changes", save)
