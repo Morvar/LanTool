@@ -21,8 +21,8 @@ def entries_in_dir(path):
 
 def get_project_path(name):
 	path = (constants.projects_path / name).with_suffix(constants.filename_extension)
-	if not path.exists():
-		return None
+	#if not path.exists():
+	#	return None
 	return path
 
 def is_project(name):
