@@ -41,14 +41,15 @@ def generate_filename():
 def save_project(project, path):
 	with path.open("wt") as fd:
 		json.dump(project, fd)
+	print("Project saved")
 
 def load_project(path):
 	with path.open("rt") as fd:
 		try:
 			r = json.load(fd)
 			return r
-		except json.JSONDecodeError as e: 
-			return {"name": path.stem,"wordlist":{}}
+		except json.JSONDecodeError as e:
+			return {"name": path.stem,"wordlist":[]}
 
 def contains_invalid_filename_character(name):
 	#return not len(Path(name).parts) == 1

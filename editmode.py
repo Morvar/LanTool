@@ -9,11 +9,11 @@ def initialized_edit_mode(path):
 	project = utils.load_project(path)
 	#print(str(project))
 	project_name = project["name"]
-	
+
 	wordlist = project["wordlist"]
 	#specify the title of the scene
 	title = f"Edit Mode [{project_name}]"
-	
+
 	#specify the functions
 	def enter_buildmode(scene, args):
 		build_mode = initialized_build_mode()
@@ -36,17 +36,17 @@ def initialized_edit_mode(path):
 			return
 		word = args[0]
 		try:
-			print(wordlist[word])
+			print(wordlist[0])
 		except KeyError:
 			print("No match was found for " + word)
-			print("to be implemented properly")
+			print("to be implemented properly. rn only shows first word entry")
 
 	def edit(scene, args):
 		pass
 
-	def additionalWordForms():
+	def additionalForms():
 		forms = {}
-		print("Add additional forms (enter empty line when done) ")
+		print("Add additional forms. These will override any general rules (enter empty line when done) ")
 		while True:
 			print("Label: ")
 			l = input(constants.input_prompt).strip()
@@ -58,7 +58,7 @@ def initialized_edit_mode(path):
 				if not f:
 					break
 			forms[l] = f
-			print("Added new form " + l + " : " + f)
+			print("Added new form: " + l + " : " + f)
 		return forms
 
 	def add(scene, args):
@@ -75,13 +75,16 @@ def initialized_edit_mode(path):
 		part_of_speech = input(constants.input_prompt).strip().lower()
 		print("Meaning (leave empty if not applicable): ")
 		meaning = input(constants.input_prompt).strip()
-		forms = additionalWordForms()
-		new_entry = wordlist_entry(dictionary_form, forms, part_of_speech, meaning)
-		wordlist[dictionary_form] = new_entry
+		print("Conjugation class (leave empty if not applicable): ")
+		conjugation_class = input(constants.input_prompt).strip()
+		forms = additionalForms()
+		new_entry = wordlist_entry(dictionary_form, part_of_speech, meaning, conjugation_class, forms)
+		wordlist.append(new_entry)
 		print("Added " + dictionary_form + " to word list")
-		print("Forms:",str(wordlist[dictionary_form]["forms"]))
-		print("partofspeech:",wordlist[dictionary_form]["part_of_speech"])
-		print("meaning:",wordlist[dictionary_form]["meaning"])
+		print("Part of speech:", part_of_speech)
+		print("Meaning:", meaning)
+		print("Conjugation class:", conjugation_class)
+		print("Forms:",str(forms))
 
 	def save(scene, args):
 		utils.save_project(project, path)
@@ -112,13 +115,14 @@ def initialized_edit_mode(path):
 	return edit_mode
 
 #class WordlistEntry:
-def wordlist_entry(dictionary_form, forms = None, part_of_speech = None, meaning = None):
+def wordlist_entry(dictionary_form, part_of_speech = None, meaning = None, conjugation_class = None, forms = None):
 #def (dictionary_form, forms = None, part_of_speech = None, meaning = None):
 	r = {}
 	r["dictionary_form"] = dictionary_form
-	r["forms"] = forms
 	r["part_of_speech"] = part_of_speech
 	r["meaning"] = meaning
+	r["conjugation_class"] = conjugation_class
+	r["forms"] = forms
 	return r
 #		self.dictionary_form = dictionary_form
 #		self.forms = forms
