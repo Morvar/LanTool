@@ -16,23 +16,13 @@ def project_entries():
 			pass
 	return file_list
 
-#def entries_in_dir(path):
-	#path.iterdir()
-
 def get_project_path(name):
 	path = (constants.projects_path / name).with_suffix(constants.filename_extension)
-	#if not path.exists():
-	#	return None
 	return path
 
 def is_project(name):
 	path = get_project_path(name)
 	return path.exists()
-
-#def get_project(name):
-#	path = get_project_path(name)
-	#make a json object
-#	print("utils get_project not implemented")
 
 def generate_filename():
 	#temporary way of generating names
@@ -52,7 +42,6 @@ def load_project(path):
 			return {"name": path.stem,"wordlist":[]}
 
 def contains_invalid_filename_character(name):
-	#return not len(Path(name).parts) == 1
 	return not len(Path(name).parts) <= 1
 
 def new_projectfile(name):

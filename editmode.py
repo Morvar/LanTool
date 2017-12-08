@@ -116,7 +116,6 @@ def initialized_edit_mode(path):
 
 #class WordlistEntry:
 def wordlist_entry(dictionary_form, part_of_speech = None, meaning = None, conjugation_class = None, forms = None):
-#def (dictionary_form, forms = None, part_of_speech = None, meaning = None):
 	r = {}
 	r["dictionary_form"] = dictionary_form
 	r["part_of_speech"] = part_of_speech
@@ -124,7 +123,3 @@ def wordlist_entry(dictionary_form, part_of_speech = None, meaning = None, conju
 	r["conjugation_class"] = conjugation_class
 	r["forms"] = forms
 	return r
-#		self.dictionary_form = dictionary_form
-#		self.forms = forms
-#		self.part_of_speech = part_of_speech
-#		self.meaning = meaning
