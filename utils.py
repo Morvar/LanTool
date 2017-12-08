@@ -16,8 +16,8 @@ def project_entries():
 			pass
 	return file_list
 
-def entries_in_dir(path):
-	path.iterdir()
+#def entries_in_dir(path):
+	#path.iterdir()
 
 def get_project_path(name):
 	path = (constants.projects_path / name).with_suffix(constants.filename_extension)

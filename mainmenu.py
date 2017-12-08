@@ -16,9 +16,12 @@ def initialized_main_menu():
 		if args:
 			utils.print_invalid_arg(args[0])
 			return
+		entries = utils.project_entries()
+		if not entries:
+			print("No projects were found")
+			return
 		print("Here's a list of your projects: ")
 		print("---------")
-		entries = utils.project_entries()
 		for entry in entries:
 			print("▪ " + entry.stem)
 		print("---------")
