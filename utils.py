@@ -9,7 +9,7 @@ from random import randint
 def project_entries():
 	file_list = []
 	for entry in constants.projects_path.iterdir():
-		if entry.is_file():
+		if entry.is_file() and entry.suffix == constants.filename_extension:
 			file_list.append(entry)
 		elif entry.is_dir():
 			print("utils project_entries: listing files in subdirectories not implemented")
