@@ -62,6 +62,9 @@ class Scene:
 				break
 
 	def on_input(self, i):
+		#if used only pressed enter, draw the commands
+		if not i:
+			self.draw_commands()
 		# string -> list
 		input_args = i.split()
 		if not input_args: return True
