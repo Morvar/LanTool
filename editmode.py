@@ -77,8 +77,14 @@ def initialized_edit_mode(path):
 		meaning = input(constants.input_prompt).strip()
 		print("Conjugation class (leave empty if not applicable): ")
 		conjugation_class = input(constants.input_prompt).strip()
+		print("Stem (leave empty if not applicable): ")
+		stem = input(constants.input_prompt).strip()
 		forms = additionalForms()
-		new_entry = wordlist_entry(dictionary_form, part_of_speech, meaning, conjugation_class, forms)
+		conjugation = {}
+		conjugation["conjugation_class"] = conjugation_class
+		conjugation["stem"] = stem
+		conjugation.update(forms)
+		new_entry = wordlist_entry(dictionary_form, conjugation, part_of_speech, meaning)
 		wordlist.append(new_entry)
 		print("Added " + dictionary_form + " to word list")
 		print("Part of speech:", part_of_speech)
@@ -115,11 +121,10 @@ def initialized_edit_mode(path):
 	return edit_mode
 
 #class WordlistEntry:
-def wordlist_entry(dictionary_form, part_of_speech = None, meaning = None, conjugation_class = None, forms = None):
+def wordlist_entry(dictionary_form, conjugation, part_of_speech = None, meaning = None):
 	r = {}
 	r["dictionary_form"] = dictionary_form
+	r["conjugation"] = conjugation
 	r["part_of_speech"] = part_of_speech
 	r["meaning"] = meaning
-	r["conjugation_class"] = conjugation_class
-	r["forms"] = forms
 	return r
