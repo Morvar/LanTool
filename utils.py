@@ -3,8 +3,8 @@ import os
 import constants
 from pathlib import Path
 import json
-#temporary import
-from random import randint
+import time
+#from random import randint
 
 def project_entries():
 	file_list = []
@@ -25,8 +25,16 @@ def is_project(name):
 	return path.exists()
 
 def generate_filename():
-	#temporary way of generating names
-	return str(randint(1, 10))
+	#return str(randint(1, 10))
+	date = "%04i%02i%02i"%time.localtime()[:3]
+	if not is_project(date):
+		return date
+	num = 1
+	while True:
+		print("iteration" + str(num))
+		if not is_project(date + "-" + str(num)):
+			return date + "-" + str(num)
+		num +=1
 
 def save_project(project, path):
 	with path.open("wt") as fd:
