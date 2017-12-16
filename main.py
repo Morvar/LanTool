@@ -2,25 +2,23 @@
 # coding: utf-8
 import sys
 from mainmenu import initialized_main_menu
-from constants import app_name
+import constants
+import utils
 from scene import Scene
 
 def exit_application():
-	while True:
-		print("Do you want to exit " + app_name + "? (yes/no)")
-		i = input(" > ")
-		if i == "yes":
-			print("Exiting " + app_name + " now. Cya!")
-			sys.exit(0)
-		if i == "no":
-			break
-		else:
-			print("Error: Unrecognized command")
+	print("Exiting " + constants.app_name + " now. Cya!")
+	sys.exit(0)
+
+def init_app():
+	utils.init_project_dir()
 
 # this is the ENTRY POINT
 if __name__ == "__main__":
-	print("Welcome to " + app_name + "!")
-	
+	if len(sys.argv) > 1 and sys.argv[1] == 'd':
+		constants.debug = True
+	init_app()
+	print("Welcome to " + constants.app_name + "!")
 	main_menu = initialized_main_menu()
 	while True:
 		main_menu.enter()

@@ -4,7 +4,13 @@ import constants
 from pathlib import Path
 import json
 import time
-#from random import randint
+
+def init_project_dir():
+	if(constants.debug):
+		constants.projects_path = Path("debug")
+	else:
+		constants.projects_path = Path("projects")
+	constants.projects_path.mkdir(parents=True, exist_ok=True)
 
 def project_entries():
 	file_list = []

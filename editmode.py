@@ -93,18 +93,24 @@ def initialized_edit_mode(path):
 		print("Forms:",str(forms))
 
 	def save(scene, args):
+		#if there were more than one additional argument, don't execute
+		if len(args):
+			utils.print_invalid_arg(args[0])
+			return
 		utils.save_project(project, path)
 
 	def exit_editmode(scene, args):
 		while True:
-			print("Do you want to exit " + title + "? (yes/no)")
+			print("Do you want to save before exiting " + title + "? (yes/no)")
 			i = input(constants.input_prompt)
 			if i == "yes":
+				utils.save_project(project, path)
 				return False
 			if i == "no":
 				break
 			else:
 				print("Error: Unrecognized command")
+		return False
 
 	#specify the commands and which functions they will use
 	commands = OrderedDict()
