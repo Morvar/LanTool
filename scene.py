@@ -79,7 +79,8 @@ class Scene:
 			#if there was no matching key:
 			utils.print_unrecognized_command(input_command)
 		else:
-			print("(debug from scene) Input: ", input_args[0], tail_args)
+			if constants.debug:
+				print("(debug from scene) Input: ", input_args[0], tail_args)
 			return command_function(self, tail_args)
 
 	#"launch" the scene. when this function ends, the user has chosen to exit the scene
