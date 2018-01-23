@@ -13,7 +13,7 @@ def initialized_edit_mode(path):
 	wordlist = project["wordlist"]
 	#specify the title of the scene
 	title = f"Edit Mode [{project_name}]"
-        unsaved = False
+		unsaved = False
 	if constants.debug:
 		print("unsaved: " + str(unsaved))
 	#specify the functions
