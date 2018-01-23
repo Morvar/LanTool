@@ -13,7 +13,9 @@ def initialized_edit_mode(path):
 	wordlist = project["wordlist"]
 	#specify the title of the scene
 	title = f"Edit Mode [{project_name}]"
-
+        unsaved = False
+	if constants.debug:
+		print("unsaved: " + str(unsaved))
 	#specify the functions
 	def enter_buildmode(scene, args):
 		build_mode = initialized_build_mode()
@@ -91,25 +93,36 @@ def initialized_edit_mode(path):
 		print("Meaning:", meaning)
 		print("Conjugation class:", conjugation_class)
 		print("Forms:",str(forms))
+		unsaved = True
+		if constants.debug:
+			print("unsaved: " + str(unsaved))
 
 	def save(scene, args):
+		if constants.debug:
+			print("unsaved: " + str(unsaved))
 		#if there were more than one additional argument, don't execute
 		if len(args):
 			utils.print_invalid_arg(args[0])
 			return
 		utils.save_project(project, path)
+		unsaved = False
+		if constants.debug:
+			print("unsaved: " + str(unsaved))
 
 	def exit_editmode(scene, args):
-		while True:
-			print("Do you want to save before exiting " + title + "? (yes/no)")
-			i = input(constants.input_prompt)
-			if i == "yes":
-				utils.save_project(project, path)
-				return False
-			if i == "no":
-				break
-			else:
-				print("Error: Unrecognized command")
+		if constants.debug:
+			print("unsaved: " + str(unsaved))
+		if unsaved:
+			while True:
+				print("Do you want to save before exiting " + title + "? (yes/no)")
+				i = input(constants.input_prompt)
+				if i == "yes":
+					utils.save_project(project, path)
+					return False
+				if i == "no":
+					break
+				else:
+					print("Error: Unrecognized command")
 		return False
 
 	#specify the commands and which functions they will use
