@@ -6,6 +6,7 @@ from scene import Scene
 from editmode import initialized_edit_mode
 import os
 
+#creates Scene object to be used as main menu
 def initialized_main_menu():
 	#specify the title
 	title = "Main Menu"

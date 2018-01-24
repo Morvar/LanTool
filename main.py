@@ -15,10 +15,13 @@ def init_app():
 
 # this is the ENTRY POINT
 if __name__ == "__main__":
+	#if main was run with argument 'd', enable debug mode
 	if len(sys.argv) > 1 and sys.argv[1] == 'd':
 		constants.debug = True
+	#do necessary setup
 	init_app()
 	print("Welcome to " + constants.app_name + "!")
+	#create a main menu and enter it
 	main_menu = initialized_main_menu()
 	while True:
 		main_menu.enter()
