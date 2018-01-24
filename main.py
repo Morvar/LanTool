@@ -21,6 +21,7 @@ if __name__ == "__main__":
 	#do necessary setup
 	init_app()
 	print("Welcome to " + constants.app_name + "!")
+	if constants.debug: print("DEBUG MODE")
 	#create a main menu and enter it
 	main_menu = initialized_main_menu()
 	while True:
