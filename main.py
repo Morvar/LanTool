@@ -6,14 +6,16 @@ import constants
 import utils
 from scene import Scene
 
+#do stuff that needs to be done before exiting the app, then exit
 def exit_application():
 	print("Exiting " + constants.app_name + " now. Cya!")
 	sys.exit(0)
 
+#do necessary setup
 def init_app():
 	utils.init_project_dir()
 
-# this is the ENTRY POINT
+#this is the ENTRY POINT
 if __name__ == "__main__":
 	#if main was run with argument 'd', enable debug mode
 	if len(sys.argv) > 1 and sys.argv[1] == 'd':
@@ -21,7 +23,7 @@ if __name__ == "__main__":
 	#do necessary setup
 	init_app()
 	print("Welcome to " + constants.app_name + "!")
-	if constants.debug: print("DEBUG MODE")
+	if constants.debug: print("DEBUG MODE ENABLED")
 	#create a main menu and enter it
 	main_menu = initialized_main_menu()
 	while True:
