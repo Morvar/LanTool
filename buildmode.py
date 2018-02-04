@@ -1,32 +1,41 @@
 # coding: utf-8
 from collections import OrderedDict
-from scene import Scene
-def initialized_build_mode():
-	#specify the title
-	title = "Build Mode"
+from scene import Scene, command
+
+class BuildMode(Scene):
+	def __init__(self):
+		#construct a scene
+		super().__init__("Build Mode")
 
 	#specify the functions
-	def add_piece(scene, args):
+	@command("add", "Add piece")
+	def add_piece(self, args):
 		pass
 
-	def remove_piece(scene, args):
+	@command("rem", "Remove piece")
+	def remove_piece(self, args):
 		pass
 
-	def move_piece(scene, args):
+	@command("move", "Move piece")
+	def move_piece(self, args):
 		pass
 
-	def edit_piece(scene, args):
+	@command("edit", "Edit piece")
+	def edit_piece(self, args):
 		pass
 
-	def duplicate_piece(scene, args):
+	@command("dup", "Duplicate piece")
+	def duplicate_piece(self, args):
 		pass
 
-	def save_workspace(scene, args):
+	@command("save", "Save workspace")
+	def save_workspace(self, args):
 		pass
 
-	def exit_buildmode(scene, args):
+	@command("exit", "Exit")
+	def exit_buildmode(self, args):
 		while True:
-			print("Do you want to exit " + title + "? (yes/no)")
+			print("Do you want to exit " + self.title + "? (yes/no)")
 			i = input(" > ")
 			if i == "yes":
 				return False
@@ -34,17 +43,3 @@ def initialized_build_mode():
 				break
 			else:
 				print("Error: Unrecognized command")
-
-	#specify the commands and which functions they will use
-	commands = OrderedDict()
-	commands["add"] = ("Add", add_piece)
-	commands["search"] = ("remove", remove_piece)
-	commands["edit"] = ("move", move_piece)
-	commands["edit"] = ("edit", edit_piece)
-	commands["add"] = ("duplicate", duplicate_piece)
-	commands["save"] = ("Save workspace", save_workspace)
-	commands["exit"] = ("Exit", exit_buildmode)
-
-	#create an edit mode from the Scene class
-	build_mode = Scene(title, commands)
-	return build_mode

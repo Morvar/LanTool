@@ -2,17 +2,18 @@
 import constants
 import utils
 from collections import OrderedDict
-from scene import Scene
-from editmode import initialized_edit_mode
+from scene import Scene, command
+from editmode import EditMode
 import os
 
-#creates Scene object to be used as main menu
-def initialized_main_menu():
-	#specify the title
-	title = "Main Menu"
+class MainMenu(Scene):
+	def __init__(self):
+		#construct a scene
+		super().__init__("Main Menu")
 
 	#specify the functions
-	def list_projects(scene, args):
+	@command("list", "List projects")
+	def list_projects(self, args):
 		#if there were additional arguments, don't execute
 		if args:
 			utils.print_invalid_arg(args[0])
@@ -27,7 +28,8 @@ def initialized_main_menu():
 			print("▪ " + entry.stem)
 		print("---------")
 
-	def create_project(scene, args):
+	@command("new", "Create new project")
+	def create_project(self, args):
 		#if there were more than one additional argument, don't execute
 		if len(args) > 1:
 			utils.print_invalid_arg(args[1])
@@ -43,7 +45,8 @@ def initialized_main_menu():
 		print(f"Project '{new_file.stem}' was created")
 
 	#the way to edit mode
-	def open_project(scene, args):
+	@command("open", "Open project")
+	def open_project(self, args):
 		#if no arguments were given, don't execute
 		if not args:
 			utils.print_missing_arg("project name")
@@ -57,14 +60,15 @@ def initialized_main_menu():
 		if not project_path:
 			print(f"Could not find project {project_name}")
 			return
-		edit_mode = initialized_edit_mode(project_path)
+		editmode = EditMode(project_path)
 		print("Opening project " + project_name + "... ")
-		edit_mode.enter()
+		editmode.enter()
 		# is drawing scene a sane thing to do here?
-		scene.draw()
+		self.draw()
 		return
 
-	def delete_project(scene, args):
+	@command("delete", "Delete project")
+	def delete_project(self, args):
 		#if no arguments were given, don't execute
 		if not args:
 			utils.print_missing_arg("project name")
@@ -79,17 +83,6 @@ def initialized_main_menu():
 			else:
 				print(f"{file_name} was not deleted")
 
-	def exit_mainmenu(scene, args):
+	@command("exit", "Exit " + constants.app_name)
+	def exit_mainmenu(self, args):
 		return False
-
-	#specify the commands and which functions they will use
-	commands = OrderedDict()
-	commands["list"] = ("List projects", list_projects)
-	commands["new"] = ("Create new project", create_project)
-	commands["open"] = ("Open project", open_project)
-	commands["delete"] = ("Delete project", delete_project)
-	commands["exit"] = ("Exit " + constants.app_name, exit_mainmenu)
-
-	#create a main menu from the Scene class
-	main_menu = Scene(title, commands)
-	return main_menu

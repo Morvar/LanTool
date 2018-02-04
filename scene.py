@@ -3,16 +3,27 @@ from collections import OrderedDict
 from copy import deepcopy
 import utils
 import constants
+
+def command(cmd, description):
+	def decorator(f):
+		f._cmd_name = cmd
+		f._cmd_desc = description
+		return f
+	return decorator
+
 class Scene:
-	def __init__(self, title, commands = None):
+	def __init_subclass__(cls, **kwargs):
+		super().__init_subclass__(**kwargs)
+		cls.commands = OrderedDict()
+		for c in cls.mro():
+			for k, v in vars(c).items():
+				if hasattr(v, "_cmd_name"):
+					cls.commands.setdefault(v._cmd_name, (v._cmd_desc, v))
+		if not cls.commands:
+			cls.commands["exit"] = ("Exit", lambda: False)
+
+	def __init__(self, title):
 		self.title = title
-
-		if commands is None:
-			self.commands = OrderedDict()
-			self.commands["exit"] = ("Exit", lambda: False)
-		else:
-			self.commands = deepcopy(commands)
-
 		self.elements = []
 
 	def add_element(self, new_element):
@@ -49,9 +60,9 @@ class Scene:
 		for key in keys:
 			number_of_left_spaces = max_left - len(self.commands[key][0])
 			number_of_right_spaces = max_right - len(key)
-			print(self.commands[key][0] + space_character * number_of_left_spaces \
+			print(self.commands[key][0] + " " + space_character * number_of_left_spaces \
 			+ space_character * number_of_middle_spaces \
-			+ space_character * number_of_right_spaces + "(" + key + ")")
+			+ space_character * number_of_right_spaces + " (" + key + ")")
 		print("")
 
 	def request_input(self):

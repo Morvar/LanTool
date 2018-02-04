@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 import sys
-from mainmenu import initialized_main_menu
+from mainmenu import MainMenu
 import constants
 import utils
 from scene import Scene
@@ -25,7 +25,7 @@ if __name__ == "__main__":
 	print("Welcome to " + constants.app_name + "!")
 	if constants.debug: print("DEBUG MODE ENABLED")
 	#create a main menu and enter it
-	main_menu = initialized_main_menu()
+	main_menu = MainMenu()
 	while True:
 		main_menu.enter()
 		# when main menu returns, the user has chosen to exit the application

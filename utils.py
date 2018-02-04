@@ -37,7 +37,8 @@ def generate_filename():
 		return date
 	num = 1
 	while True:
-		print("iteration" + str(num))
+		if constants.debug:
+			print("Try new name " + str(num))
 		if not is_project(date + "-" + str(num)):
 			return date + "-" + str(num)
 		num +=1
