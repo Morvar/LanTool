@@ -107,5 +107,5 @@ def print_unrecognized_command(cmd):
 def print_invalid_arg(arg):
 	print("Error: Invalid argument: " + arg)
 
-def print_missing_arg(missing_arg):
-	print("Error: Missing argument: '" + missing_arg + "'")
+def print_missing_arg(arg):
+	print("Error: Missing argument: '" + arg + "'")
