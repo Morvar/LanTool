@@ -57,7 +57,7 @@ class MainMenu(Scene):
 			return
 		project_name = args[0]
 		project_path = utils.get_project_path(project_name)
-		if not project_path:
+		if not project_path.exists():
 			print(f"Could not find project {project_name}")
 			return
 		editmode = EditMode(project_path)
