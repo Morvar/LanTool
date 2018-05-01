@@ -4,6 +4,8 @@ from scene import Scene, command
 from buildmode import BuildMode
 import constants
 import utils
+import re
+import fnmatch
 
 class EditMode(Scene):
 	def __init__(self, project_path):
@@ -12,8 +14,9 @@ class EditMode(Scene):
 		super().__init__(title)
 		self.project_path = project_path
 		self.project = utils.load_project(project_path)
-		self.project_name = self.project["name"]
-		self.wordlist = self.project["wordlist"]
+		self.project_name = self.project.get("name", "")
+		self.wordlist = self.project.get("wordlist", [])
+		self.searchable_forms = self.project.get("searchable_forms", ["dictionary_form"])
 		#put the project title in the title of the scene
 		self.title = f"{title} [{self.project_name}]"
 		self.unsaved = False
@@ -40,11 +43,17 @@ class EditMode(Scene):
 		if len(args) > 1:
 			utils.print_invalid_arg(args[1])
 			return
+		print(self.wordlist)
+		if not self.wordlist:
+			print("Error: Wordlist is empty")
+		if not self.searchable_forms:
+			print("Error: Seachable Forms is empty")
 		word = args[0]
 		try:
 			#to be implemented
-			if self.wordlist:
-				print(self.wordlist[0])
+			glob = args[0]
+			result = list(self.matches(self.wordlist, glob))
+			print(result)
 		except KeyError:
 			print("No match was found for " + word)
 			print("to be implemented properly. rn only shows first word entry")
@@ -64,6 +73,9 @@ class EditMode(Scene):
 			utils.print_invalid_arg(args[1])
 			return
 		dictionary_form = args[0].strip()
+		if self.word_exists(dictionary_form):
+			print(f"Error: Word '{dictionary_form}' is already in the wordlist")
+			return
 		print("Part of speech (leave empty if not applicable): ")
 		part_of_speech = input(constants.input_prompt).strip().lower()
 		print("Meaning (leave empty if not applicable): ")
@@ -87,6 +99,9 @@ class EditMode(Scene):
 					if not f:
 						break
 				forms[l] = f
+				#temporarily add the form to searchable forms per default
+				if l not in self.searchable_forms:
+					self.searchable_forms.append(l)
 				print("Added new form: " + l + " : " + f)
 			return forms
 
@@ -135,6 +150,24 @@ class EditMode(Scene):
 				else:
 					print("Error: Unrecognized command")
 		return False
+
+	#helper functions for the editmode class
+	def get_form(self, word, form):
+		if form == "dictionary_form":
+			return word["dictionary_form"]
+		return self.wordlist[word["conjugation"[form]]]
+
+	def word_exists(self, dictionary_form):
+		for word in self.wordlist:
+			return word["dictionary_form"] == dictionary_form
+
+	def matches(self, wordlist, glob):
+		regex = re.compile(fnmatch.translate(glob))
+		for word in wordlist:
+			for form in self.searchable_forms:
+				conj = self.get_form(word, form)
+				if conj is not None and regex.match(conj):
+					yield word #or put it in list and return
 
 #class WordlistEntry:
 def wordlist_entry(dictionary_form, conjugation, part_of_speech = None, meaning = None):
