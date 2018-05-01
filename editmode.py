@@ -152,10 +152,11 @@ class EditMode(Scene):
 		return False
 
 	#helper functions for the editmode class
+
 	def get_form(self, word, form):
 		if form == "dictionary_form":
 			return word["dictionary_form"]
-		return self.wordlist[word["conjugation"[form]]]
+		return word["conjugation"][form]
 
 	def word_exists(self, dictionary_form):
 		for word in self.wordlist:
@@ -168,6 +169,8 @@ class EditMode(Scene):
 				conj = self.get_form(word, form)
 				if conj is not None and regex.match(conj):
 					yield word #or put it in list and return
+
+	#end helper functions
 
 #class WordlistEntry:
 def wordlist_entry(dictionary_form, conjugation, part_of_speech = None, meaning = None):
