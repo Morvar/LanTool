@@ -6,6 +6,8 @@ import constants
 import utils
 import re
 import fnmatch
+#temporary debug
+import traceback
 
 class EditMode(Scene):
 	def __init__(self, project_path):
@@ -48,14 +50,14 @@ class EditMode(Scene):
 			print("Error: Wordlist is empty")
 		if not self.searchable_forms:
 			print("Error: Seachable Forms is empty")
-		word = args[0]
+		search = args[0]
 		try:
 			#to be implemented
-			glob = args[0]
-			result = list(self.matches(self.wordlist, glob))
+			result = list(self.matches(self.wordlist, search))
 			print(result)
-		except KeyError:
-			print("No match was found for " + word)
+		except KeyError: #TODO what might have caused a KeyError? fix behavior
+			print(traceback.format_exc())
+			print("KeyError. No match was found for " + search)
 			print("to be implemented properly. rn only shows first word entry")
 
 	@command("edit", "Edit entry")
@@ -154,9 +156,12 @@ class EditMode(Scene):
 	#helper functions for the editmode class
 
 	def get_form(self, word, form):
+		print("word " + str(word) + "\nform: " + str(form))
 		if form == "dictionary_form":
 			return word["dictionary_form"]
-		return word["conjugation"][form]
+		#if the word has no "conjugation", return None
+		# and if the word has "conjugation" but not the specific form, return None
+		return word.get("conjugation", {}).get(form, None)
 
 	def word_exists(self, dictionary_form):
 		for word in self.wordlist:
@@ -170,7 +175,7 @@ class EditMode(Scene):
 				if conj is not None and regex.match(conj):
 					yield word #or put it in list and return
 
-	#end helper functions
+	#end helper functions for the editmode class
 
 #class WordlistEntry:
 def wordlist_entry(dictionary_form, conjugation, part_of_speech = None, meaning = None):
