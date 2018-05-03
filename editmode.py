@@ -50,11 +50,13 @@ class EditMode(Scene):
 		if not self.searchable_forms:
 			print("Error: Seachable Forms is empty")
 		search_pattern = args[0]
-		results = list(self.matches(self.wordlist, search_pattern))
+		results = list(self.matches(self.wordlist, search_pattern)) #TODO too many instances of same word!!
 		if not results:
 			print(f"No matches found for '{search_pattern}'")
+			return
 		def printSearchresults(results):
 			print("\n".join(entry["dictionary_form"] for entry in results))
+		print(f"Matches for '{search_pattern}':")
 		printSearchresults(results)
 
 	@command("edit", "Edit entry")
@@ -170,6 +172,7 @@ class EditMode(Scene):
 				conj = self.get_form(word, form)
 				if conj is not None and regex.match(conj):
 					yield word #or put it in list and return
+					break
 
 	#end helper functions for the editmode class
 
