@@ -53,7 +53,9 @@ class EditMode(Scene):
 		results = list(self.matches(self.wordlist, search_pattern))
 		if not results:
 			print(f"No matches found for '{search_pattern}'")
-		print(results)
+		def printSearchresults(results):
+			print("\n".join(entry["dictionary_form"] for entry in results))
+		printSearchresults(results)
 
 	@command("edit", "Edit entry")
 	def edit(self, args):
