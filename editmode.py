@@ -45,20 +45,15 @@ class EditMode(Scene):
 		if len(args) > 1:
 			utils.print_invalid_arg(args[1])
 			return
-		print(self.wordlist)
 		if not self.wordlist:
 			print("Error: Wordlist is empty")
 		if not self.searchable_forms:
 			print("Error: Seachable Forms is empty")
-		search = args[0]
-		try:
-			#to be implemented
-			result = list(self.matches(self.wordlist, search))
-			print(result)
-		except KeyError: #TODO what might have caused a KeyError? fix behavior
-			print(traceback.format_exc())
-			print("KeyError. No match was found for " + search)
-			print("to be implemented properly. rn only shows first word entry")
+		search_pattern = args[0]
+		results = list(self.matches(self.wordlist, search_pattern))
+		if not results:
+			print(f"No matches found for '{search_pattern}'")
+		print(results)
 
 	@command("edit", "Edit entry")
 	def edit(self, args):
@@ -156,7 +151,6 @@ class EditMode(Scene):
 	#helper functions for the editmode class
 
 	def get_form(self, word, form):
-		print("word " + str(word) + "\nform: " + str(form))
 		if form == "dictionary_form":
 			return word["dictionary_form"]
 		#if the word has no "conjugation", return None
