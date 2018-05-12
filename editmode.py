@@ -35,29 +35,53 @@ class EditMode(Scene):
 		self.draw()
 		return
 
-	@command("show", "Show entry")
-	def show(self, args):
-		#if no arguments were given, don't execute
-		if not args:
-			utils.print_missing_arg("word")
-			return
+	@command("find", "Find matches")
+	def find(self, args):
 		#if there were more than one additional argument, don't execute
 		if len(args) > 1:
 			utils.print_invalid_arg(args[1])
 			return
-		if not self.wordlist:
-			print("Error: Wordlist is empty")
-		if not self.searchable_forms:
-			print("Error: Seachable Forms is empty")
-		search_pattern = args[0]
-		results = list(self.matches(self.wordlist, search_pattern)) #TODO too many instances of same word!!
+		#if no argument default to '*', otherwise take the argument as search pattern
+		search_pattern = args[0] if args else "*"
+		#perform the search
+		results = self.search(search_pattern)
+		#if there were no matches, print and terminate
 		if not results:
 			print(f"No matches found for '{search_pattern}'")
 			return
+		#function for printing the results
 		def printSearchresults(results):
-			print("\n".join(entry["dictionary_form"] for entry in results))
-		print(f"Matches for '{search_pattern}':")
+			for (index, entry) in enumerate(results):
+				result_dictionary_form = entry["dictionary_form"]
+				print(f"[{index}] {result_dictionary_form}")
+			#print("\n".join(entry["dictionary_form"] for entry in results))
+		print(f"    Showing matches for '{search_pattern}':")
+		#print the results
 		printSearchresults(results)
+
+		#TODO be able to inspect entry closer (show?) and edit entry, all based on the index
+		while True:
+			print("'show <index>' to view entry, 'edit <index>' to edit entry\n(enter empty line when done)")
+			i = input(constants.input_prompt_nested_mode).split()
+			#if no command was given, break
+			if not i:
+				break
+			input_command = i[0]
+			tail_args = i[1:]
+			if input_command == "show":
+				print("it was 'show'")
+				self.show(tail_args)
+				#show the entry
+			elif input_command == "edit":
+				print("it was 'edit'")
+				self.edit(tail_args)
+				#edit the entry
+			else:
+				print_invalid_arg(input_command)
+
+	@command("show", "Show entry")
+	def show(self, args):
+		pass
 
 	@command("edit", "Edit entry")
 	def edit(self, args):
@@ -78,25 +102,25 @@ class EditMode(Scene):
 			print(f"Error: Word '{dictionary_form}' is already in the wordlist")
 			return
 		print("Part of speech (leave empty if not applicable): ")
-		part_of_speech = input(constants.input_prompt).strip().lower()
+		part_of_speech = input(constants.input_prompt_nested_mode).strip().lower()
 		print("Meaning (leave empty if not applicable): ")
-		meaning = input(constants.input_prompt).strip()
+		meaning = input(constants.input_prompt_nested_mode).strip()
 		print("Conjugation class (leave empty if not applicable): ")
-		conjugation_class = input(constants.input_prompt).strip()
+		conjugation_class = input(constants.input_prompt_nested_mode).strip()
 		print("Stem (leave empty if not applicable): ")
-		stem = input(constants.input_prompt).strip()
+		stem = input(constants.input_prompt_nested_mode).strip()
 
 		def additionalForms():
 			forms = {}
 			print("Add additional forms. These will override any general rules (enter empty line when done) ")
 			while True:
 				print("Label: ")
-				l = input(constants.input_prompt).strip()
+				l = input(constants.input_prompt_nested_mode).strip()
 				if not l:
 					break
 				else:
 					print("Form: ")
-					f = input(constants.input_prompt).strip()
+					f = input(constants.input_prompt_nested_mode).strip()
 					if not f:
 						break
 				forms[l] = f
@@ -174,6 +198,12 @@ class EditMode(Scene):
 					yield word #or put it in list and return
 					break
 
+	def search(self, glob):
+		if not self.wordlist:
+			print("Error: Wordlist is empty")
+		if not self.searchable_forms:
+			print("Error: Seachable Forms is empty")
+		return list(self.matches(self.wordlist, glob))
 	#end helper functions for the editmode class
 
 #class WordlistEntry:
