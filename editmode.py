@@ -77,7 +77,7 @@ class EditMode(Scene):
 				self.edit(tail_args)
 				#edit the entry
 			else:
-				print_invalid_arg(input_command)
+				utils.print_invalid_arg(input_command)
 
 	@command("show", "Show entry")
 	def show(self, args):
