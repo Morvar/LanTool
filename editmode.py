@@ -35,14 +35,14 @@ class EditMode(Scene):
 		self.draw()
 		return
 
-	@command("find", "Find matches")
-	def find(self, args):
+	@command("view", "View matches")
+	def view(self, args):
 		#if there were more than one additional argument, don't execute
 		if len(args) > 1:
 			utils.print_invalid_arg(args[1])
 			return
 		#if no argument default to '*', otherwise take the argument as search pattern
-		search_pattern = args[0] if args else "*"
+		search_pattern = args[0] if args else '*'
 		#perform the search
 		results = self.search(search_pattern)
 		#if there were no matches, print and terminate
@@ -55,37 +55,78 @@ class EditMode(Scene):
 				result_dictionary_form = entry["dictionary_form"]
 				print(f"[{index}] {result_dictionary_form}")
 			#print("\n".join(entry["dictionary_form"] for entry in results))
-		print(f"    Showing matches for '{search_pattern}':")
+		print(f"Showing matches for '{search_pattern}':")
 		#print the results
 		printSearchresults(results)
 
-		#TODO be able to inspect entry closer (show?) and edit entry, all based on the index
+		#offer options to further inspect the results
 		while True:
-			print("'show <index>' to view entry, 'edit <index>' to edit entry\n(enter empty line when done)")
+			print("'show <index>' to show entry, 'edit <index>' to edit entry\n(enter empty line when done)")
 			i = input(constants.input_prompt_nested_mode).split()
 			#if no command was given, break
 			if not i:
 				break
 			input_command = i[0]
-			tail_args = i[1:]
-			if input_command == "show":
-				print("it was 'show'")
-				self.show(tail_args)
-				#show the entry
-			elif input_command == "edit":
-				print("it was 'edit'")
-				self.edit(tail_args)
-				#edit the entry
-			else:
+			#if the command given was not one of the options, continue
+			if not (input_command == "show" or input_command == "edit"):
 				utils.print_invalid_arg(input_command)
+				continue
+			tail_args = i[1:]
+			#if no index was provided, continue
+			if not tail_args:
+				utils.print_missing_arg("index")
+				continue
+			#if too many arguments were provided, continue
+			if len(tail_args) > 1:
+				utils.print_invalid_arg(tail_args[1])
+				continue
+			try:
+				index = int(tail_args[0])
+			except ValueError:
+				#if the index provided could not be converted to an int, continue
+				utils.print_invalid_arg(tail_args[0])
+				continue
 
-	@command("show", "Show entry")
-	def show(self, args):
-		pass
+			#if index not one of the options presented to user, continue
+			if index < 0 or index > len(results) - 1:
+				utils.print_invalid_arg(str(index))
+				continue
+			entry = results[index]
+			if input_command == "show":
+				#show the entry
+				self.print_entry_details(entry)
+				continue
 
-	@command("edit", "Edit entry")
-	def edit(self, args):
-		pass
+			elif input_command == "edit":
+				#edit the entry
+				print("EDIT NOT IMPLEMENTED YET") #TODO implement edit
+#				self.edit(entry)
+			else:
+				#this is not supposed to happen anyway
+				utils.print_invalid_arg(input_command)
+				continue
+
+	def print_entry_details(self, entry):
+		print("showing entry")
+		print(entry)
+
+#	@command("show", "Show entry")
+#	def show(self, args):
+		#if no arguments were given, don't execute
+#		if not args:
+#			utils.print_missing_arg("entry to show")
+#			return
+		#if there were more than one additional argument, don't execute
+#		if len(args) > 1:
+#			utils.print_invalid_arg(args[1])
+#			return
+		#extract the information from the entry passed
+#		entry = args[0]
+#		print(f"{entry}")
+
+#	@command("edit", "Edit entry")
+#	def edit(self, args):
+#		pass
 
 	@command("add", "Add entry")
 	def add(self, args):
@@ -112,7 +153,7 @@ class EditMode(Scene):
 
 		def additionalForms():
 			forms = {}
-			print("Add additional forms. These will override any general rules (enter empty line when done) ")
+			print("Add additional forms. These will override any general rules\n(enter empty line when done)")
 			while True:
 				print("Label: ")
 				l = input(constants.input_prompt_nested_mode).strip()
