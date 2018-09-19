@@ -36,8 +36,8 @@ class EditMode(Scene):
 		self.draw()
 		return
 
-	@command("view", "View matches")
-	def view(self, args):
+	@command("show", "Show matches")
+	def show(self, args):
 		#if there were more than one additional argument, don't execute
 		if len(args) > 1:
 			utils.print_invalid_arg(args[1])
@@ -62,14 +62,14 @@ class EditMode(Scene):
 
 		#offer options to further inspect the results
 		while True:
-			print("'show <index>' to show entry, 'edit <index>' to edit entry\n(enter empty line when done)")
+			print("'view <index>' to view entry, 'edit <index>' to edit entry\n(enter empty line when done)")
 			i = input(constants.input_prompt_nested_mode).split()
 			#if no command was given, break
 			if not i:
 				break
 			input_command = i[0]
 			#if the command given was not one of the options, continue
-			if not (input_command == "show" or input_command == "edit"):
+			if not (input_command == "view" or input_command == "edit"):
 				utils.print_invalid_arg(input_command)
 				continue
 			tail_args = i[1:]
@@ -93,8 +93,8 @@ class EditMode(Scene):
 				utils.print_invalid_arg(str(index))
 				continue
 			entry = results[index]
-			if input_command == "show":
-				#show the entry
+			if input_command == "view":
+				#view the entry
 				self.print_entry_details(entry)
 				continue
 
