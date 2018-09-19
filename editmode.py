@@ -6,6 +6,7 @@ import constants
 import utils
 import re
 import fnmatch
+import pprint
 #temporary debug
 import traceback
 
@@ -107,8 +108,7 @@ class EditMode(Scene):
 				continue
 
 	def print_entry_details(self, entry):
-		print("showing entry")
-		print(entry)
+		pprint.pprint(entry)
 
 #	@command("show", "Show entry")
 #	def show(self, args):
