@@ -7,6 +7,8 @@ import utils
 import re
 import fnmatch
 import pprint
+from functools import reduce
+import operator
 #temporary debug
 import traceback
 
@@ -60,7 +62,7 @@ class EditMode(Scene):
 		#print the results
 		printSearchresults(results)
 
-		#offer options to further inspect the results
+		#offer options to further inspect and edit the results
 		while True:
 			print("'view <index>' to view entry, 'edit <index>' to edit entry\n(enter empty line when done)")
 			i = input(constants.input_prompt_nested_mode).split()
@@ -92,6 +94,7 @@ class EditMode(Scene):
 			if index < 0 or index > len(results) - 1:
 				utils.print_invalid_arg(str(index))
 				continue
+			#retrieve the entry TODO is this really what happens?
 			entry = results[index]
 			if input_command == "view":
 				#view the entry
@@ -99,9 +102,33 @@ class EditMode(Scene):
 				continue
 
 			elif input_command == "edit":
-				#edit the entry
-				print("EDIT NOT IMPLEMENTED YET") #TODO implement edit
-#				self.edit(entry)
+				while True:
+					#edit the entry
+					print("'<key> <subkey> <subsubkey> <...> <word>' to add a new or update an existing attribute\n(enter empty line when done)")
+					i = input(constants.input_prompt_nested_mode).split()
+					#if no command was given, break
+					if not i:
+						break
+					if len(i) < 2:
+						utils.print_missing_arg("word")
+						continue
+					#all but the last arg
+					keys = i[:-1]
+					#the last arg
+					new_word = i[-1]
+					#check if it already exists
+					try:
+						old_entry = reduce(operator.getitem, keys, entry)
+					except KeyError:
+						already_existing = False
+					else:
+						already_existing = True
+					reduce(operator.getitem, keys[:-1], entry)[keys[-1]] = new_word
+					self.unsaved = True
+					if already_existing:
+						print(f"Changed '{old_entry}' to '{new_word}'")
+					else:
+						print(f"Added '{new_word}'")
 			else:
 				#this is not supposed to happen anyway
 				utils.print_invalid_arg(input_command)
